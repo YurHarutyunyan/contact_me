@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Me</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1a2e 50%, #0f3460 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #e0e0e0;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated background elements */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%2310b981" fill-opacity="0.02"><path d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/></g></g></svg>') repeat;
+            pointer-events: none;
+            z-index: 0;
+            animation: drift 20s linear infinite;
+        }
+
+        @keyframes drift {
+            from { transform: translate(0, 0); }
+            to { transform: translate(60px, 60px); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
+        }
+
+        .contact-card {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 30, 50, 0.8) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 20px;
+            padding: 60px 40px;
+            box-shadow: 
+                0 8px 32px rgba(16, 185, 129, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            box-shadow: 
+                0 10px 30px rgba(16, 185, 129, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            animation: float 3s ease-in-out infinite;
+            overflow: hidden;
+            border: 3px solid rgba(16, 185, 129, 0.5);
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .name {
+            font-size: 36px;
+            font-weight: 700;
+            color: #10b981;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .title {
+            font-size: 16px;
+            color: #a0aec0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .description {
+            font-size: 14px;
+            color: #cbd5e0;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .divider {
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #10b981, transparent);
+            margin: 30px auto;
+        }
+
+        .contact-info {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 15px;
+            color: #cbd5e0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .info-item:hover {
+            color: #10b981;
+            transform: translateX(5px);
+        }
+
+        .info-item i {
+            color: #10b981;
+            margin-right: 12px;
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .social-section {
+            text-align: center;
+        }
+
+        .social-title {
+            font-size: 14px;
+            color: #a0aec0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1.5px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            color: #10b981;
+            font-size: 22px;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            padding: 0;
+            outline: none;
+        }
+
+        .social-icon::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 12px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .social-icon:hover {
+            color: #ffffff;
+            border-color: #10b981;
+            transform: translateY(-5px);
+            box-shadow: 
+                0 10px 25px rgba(16, 185, 129, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .social-icon:hover::before {
+            opacity: 1;
+        }
+
+        .social-icon i {
+            position: relative;
+            z-index: 1;
+            transition: color 0.3s ease;
+        }
+
+        /* Icon-specific colors on hover */
+        .instagram:hover { 
+            background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            border-color: #e6683c;
+        }
+
+        .instagram:hover i { color: #fff; }
+
+        .telegram:hover {
+            background: linear-gradient(135deg, #0088cc, #0098ec);
+            border-color: #0088cc;
+        }
+
+        .telegram:hover i { color: #fff; }
+
+        .linkedin:hover {
+            background: linear-gradient(135deg, #0077b5, #004182);
+            border-color: #0077b5;
+        }
+
+        .linkedin:hover i { color: #fff; }
+
+        .gmail:hover {
+            background: linear-gradient(135deg, #ea4335, #fbbc04);
+            border-color: #ea4335;
+        }
+
+        .gmail:hover i { color: #fff; }
+
+        .facebook:hover {
+            background: linear-gradient(135deg, #1877f2, #0a66c2);
+            border-color: #1877f2;
+        }
+
+        .facebook:hover i { color: #fff; }
+
+        .whatsapp:hover {
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            border-color: #25d366;
+        }
+
+        .whatsapp:hover i { color: #fff; }
+
+        .phone:hover {
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-color: #10b981;
+        }
+
+        .phone:hover i { color: #fff; }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        @media (max-width: 480px) {
+            .contact-card {
+                padding: 40px 25px;
+            }
+
+            .name {
+                font-size: 28px;
+            }
+
+            .avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 50px;
+            }
+
+            .social-links {
+                gap: 12px;
+            }
+
+            .social-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="contact-card">
+            <div class="header">
+                <div class="avatar">
+                    <img src="IMG_7677.JPG" alt="Yuri Harutyunyan">
+                </div>
+                <h1 class="name">Yuri Harutyunyan</h1>
+                <p class="description">
+                    Feel free to reach out to me through any of the channels below. I'd love to hear from you!
+                </p>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="contact-info">
+                <div class="info-item" onclick="openSocial('mailto:yharutyunyan83@gmail.com', 'mailto:yharutyunyan83@gmail.com')">
+                    <i class="fas fa-envelope"></i>
+                    <span>yharutyunyan83@gmail.com</span>
+                </div>
+                <div class="info-item" onclick="openSocial('tel:+37455049255', 'tel:+37455049255')">
+                    <i class="fas fa-phone"></i>
+                    <span>+374 55 049 255</span>
+                </div>
+                <div class="info-item" onclick="window.open('https://maps.google.com/?q=Yerevan,Armenia', '_blank')">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Yerevan, Armenia</span>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="social-section">
+                <span class="social-title">Connect With Me</span>
+                <div class="social-links">
+                    <button class="social-icon instagram" title="Instagram" onclick="window.open('https://www.instagram.com/yurharutyunyan0/', '_blank')">
+                        <i class="fab fa-instagram"></i>
+                    </button>
+                    <button class="social-icon telegram" title="Telegram" onclick="window.open('https://t.me/YuriHarutyunyan', '_blank')">
+                        <i class="fab fa-telegram"></i>
+                    </button>
+                    <button class="social-icon linkedin" title="LinkedIn" onclick="window.open('https://www.linkedin.com/in/yuri-harutyunyan-21b1b8255/', '_blank')">
+                        <i class="fab fa-linkedin-in"></i>
+                    </button>
+                    <button class="social-icon phone" title="Phone" onclick="openSocial('tel:+37455049255', 'tel:+37455049255')">
+                        <i class="fas fa-phone"></i>
+                    </button>
+                    <button class="social-icon gmail" title="Gmail" onclick="openSocial('mailto:yharutyunyan83@gmail.com?subject=Hello', 'mailto:yharutyunyan83@gmail.com')">
+                        <i class="fas fa-envelope"></i>
+                    </button>
+                    <button class="social-icon facebook" title="Facebook" onclick="window.open('https://www.facebook.com/profile.php?id=100084485615789', '_blank')">
+                        <i class="fab fa-facebook-f"></i>
+                    </button>
+                    <button class="social-icon whatsapp" title="WhatsApp" onclick="window.open('https://api.whatsapp.com/send/?phone=37455049255&text&type=phone_number&app_absent=0', '_blank')">
+                        <i class="fab fa-whatsapp"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p>© 2025 Yuri Harutyunyan. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * Opens a social media app if available, otherwise falls back to web URL
+         * @param {string} appScheme - The deep link URI for the native app
+         * @param {string} webUrl - The fallback web URL
+         */
+        function openSocial(appScheme, webUrl) {
+            // Store the original visibility state
+            let isPageHidden = false;
+
+            // Try to open the app using the deep link
+            window.location.href = appScheme;
+
+            // Listen for visibility change (indicates app was opened)
+            const handleVisibilityChange = () => {
+                if (document.hidden) {
+                    isPageHidden = true;
+                    clearTimeout(fallbackTimer);
+                }
+            };
+
+            document.addEventListener('visibilitychange', handleVisibilityChange);
+
+            // If the app doesn't open within 500ms, redirect to the web URL
+            const fallbackTimer = setTimeout(() => {
+                document.removeEventListener('visibilitychange', handleVisibilityChange);
+                
+                if (!isPageHidden) {
+                    // Check if it's a special protocol (tel, mailto) that should be handled differently
+                    if (appScheme.startsWith('tel:') || appScheme.startsWith('mailto:')) {
+                        window.location.href = webUrl;
+                    } else {
+                        // For app protocols, open web URL in new tab
+                        window.open(webUrl, '_blank');
+                    }
+                }
+            }, 500);
+        }
+    </script>
+</body>
+</html>
