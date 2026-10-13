@@ -308,6 +308,38 @@
             color: #64748b;
         }
 
+        .coming-soon {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(10, 14, 39, 0.92);
+            backdrop-filter: blur(8px);
+            cursor: pointer;
+        }
+
+        .coming-soon.show {
+            display: flex;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .coming-soon span {
+            font-size: clamp(56px, 14vw, 160px);
+            font-weight: 800;
+            color: #10b981;
+            text-align: center;
+            line-height: 1;
+            letter-spacing: -2px;
+            text-shadow: 0 10px 40px rgba(16, 185, 129, 0.4);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
         @media (max-width: 480px) {
             .contact-card {
                 padding: 40px 25px;
@@ -370,10 +402,10 @@
             <div class="social-section">
                 <span class="social-title">Connect With Me</span>
                 <div class="social-links">
-                    <button class="social-icon instagram" title="Instagram" onclick="window.open('https://www.instagram.com/yurharutyunyan0/', '_blank')">
+                    <button class="social-icon instagram" title="Instagram" onclick="showComingSoon()">
                         <i class="fab fa-instagram"></i>
                     </button>
-                    <button class="social-icon telegram" title="Telegram" onclick="window.open('https://t.me/YuriHarutyunyan', '_blank')">
+                    <button class="social-icon telegram" title="Telegram" onclick="window.open('https://t.me/yurhar', '_blank')">
                         <i class="fab fa-telegram"></i>
                     </button>
                     <button class="social-icon linkedin" title="LinkedIn" onclick="window.open('https://www.linkedin.com/in/yuri-harutyunyan-21b1b8255/', '_blank')">
@@ -385,7 +417,7 @@
                     <button class="social-icon gmail" title="Gmail" onclick="openSocial('mailto:yharutyunyan83@gmail.com?subject=Hello', 'mailto:yharutyunyan83@gmail.com')">
                         <i class="fas fa-envelope"></i>
                     </button>
-                    <button class="social-icon facebook" title="Facebook" onclick="window.open('https://www.facebook.com/profile.php?id=100084485615789', '_blank')">
+                    <button class="social-icon facebook" title="Facebook" onclick="showComingSoon()">
                         <i class="fab fa-facebook-f"></i>
                     </button>
                     <button class="social-icon whatsapp" title="WhatsApp" onclick="window.open('https://api.whatsapp.com/send/?phone=37455049255&text&type=phone_number&app_absent=0', '_blank')">
@@ -400,7 +432,24 @@
         </div>
     </div>
 
+    <div class="coming-soon" id="comingSoon" onclick="hideComingSoon()">
+        <span>Coming<br>soon</span>
+    </div>
+
     <script>
+        function showComingSoon() {
+            document.getElementById('comingSoon').classList.add('show');
+        }
+
+        function hideComingSoon() {
+            document.getElementById('comingSoon').classList.remove('show');
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') hideComingSoon();
+        });
+
+
         /**
          * Opens a social media app if available, otherwise falls back to web URL
          * @param {string} appScheme - The deep link URI for the native app
